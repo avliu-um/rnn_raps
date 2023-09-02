@@ -85,7 +85,7 @@ def split_train_test(x,y):
     return train_x, train_y, test_x, test_y
 
 
-def gen_embedding_matrix(vocabulary, emb_file='./source/glove.6B.100d.txt'):
+def gen_embedding_matrix(vocabulary, vocab_size, emb_file='./source/glove.6B.100d.txt'):
     # Pre-trained embeddings
     # Load in embeddings
     glove = np.loadtxt(emb_file, dtype='str', comments=None)
@@ -98,7 +98,7 @@ def gen_embedding_matrix(vocabulary, emb_file='./source/glove.6B.100d.txt'):
     word_lookup = {word: vector for word, vector in zip(words, vectors)}
 
     # New matrix to hold word embeddings
-    embedding_matrix = np.zeros((len(vocabulary), vectors.shape[1]))
+    embedding_matrix = np.zeros((vocab_size, vectors.shape[1]))
 
     for i, word in enumerate(vocabulary):
         # Look up the word embedding
@@ -121,7 +121,7 @@ def main():
     print(f'tokenized verses with {vocab_size}-word long vocabulary')
 
     if not os.path.isfile('data/glove_raps.npy'):
-        embedding_matrix = gen_embedding_matrix(vocab)
+        embedding_matrix = gen_embedding_matrix(vocab, vocab_size)
         np.save('data/glove_raps.npy', embedding_matrix)
         print(f'generated embedding matrix of size {str(embedding_matrix.shape)}')
 
