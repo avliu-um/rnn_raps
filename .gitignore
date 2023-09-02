@@ -1,5 +1,4 @@
-glove.6B.100d.txt
+source/glove.6B.100d.txt
 .ipynb_checkpoints/
-kaggle.json
 env/
-
+data/
